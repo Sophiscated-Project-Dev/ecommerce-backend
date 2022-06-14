@@ -1,0 +1,20 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sophiscated-Project-Dev/ecommerce-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sophiscated-Project-Dev/ecommerce-backend/issues"
+  },
+  "homepage": "https://github.com/Sophiscated-Project-Dev/ecommerce-backend#readme"
+}
