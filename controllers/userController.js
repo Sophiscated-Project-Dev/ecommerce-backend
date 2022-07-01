@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
+const { BadRequestError } = require("../errors/index");
 
 //all error functions and roken function yet to be created
 const register = async (req, res) => {

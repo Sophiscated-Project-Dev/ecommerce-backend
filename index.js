@@ -1,6 +1,6 @@
 const express = require("express");
-
-const PORT = process.env.PORT || 5000;
+require("dotenv").config();
+const cnonnectDb = require("./db/connectdb");
 
 const app = express();
 
@@ -8,6 +8,8 @@ app.get("/", (req, res, next) => {
   res.send("This is the home page");
 });
 
-app.listen(5000, () => {
-  console.log(`App listening on ${PORT}`);
+const PORT = process.env.PORT || 5000;
+cnonnectDb();
+app.listen(PORT, () => {
+  console.log(`App listening on port: ${PORT}`);
 });
