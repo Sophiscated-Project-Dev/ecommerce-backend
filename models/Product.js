@@ -80,4 +80,8 @@ productSchema.virtual("reviews", {
   justOne: false,
 });
 
+productSchema.post("remove", async function () {
+  await this.model("Review").deleteMany({ product: this._id });
+});
+
 module.exports = model("Product", productSchema);
