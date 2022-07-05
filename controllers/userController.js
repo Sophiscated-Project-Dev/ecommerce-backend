@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError } = require("../errors/index");
-const { createToken, userToken } = require("../utils/index");
+const { createToken, userToken, addTokonToCookie } = require("../utils/index");
 
 //register user
 const register = async (req, res) => {
@@ -37,9 +37,9 @@ const register = async (req, res) => {
     role,
   });
   const tokenUser = userToken(user);
-  console.log(tokenUser);
   const token = createToken({ payload: tokenUser });
-  res.status(StatusCodes.CREATED).json({ token });
+  addTokonToCookie({ res, user: tokenUser });
+  res.status(StatusCodes.CREATED).json({ user: token });
 };
 
 //login user
@@ -58,7 +58,9 @@ const loginUser = async (req, res) => {
   }
   const tokenUser = userToken(user);
   const token = createToken({ payload: tokenUser });
-  res.json({ token });
+  addTokonToCookie({ res, user: tokenUser });
+  res.json({ user: token });
 };
 
+//update user
 module.exports = { register, loginUser };
