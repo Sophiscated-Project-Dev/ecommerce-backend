@@ -1,4 +1,4 @@
-const mongoose = require("mongose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const { model, Schema } = mongoose;
@@ -26,7 +26,7 @@ const userSchema = Schema(
       },
       unique: true,
     },
-    phoneNubmer: {
+    phoneNumber: {
       type: String,
       required: [true, "please provide phone number"],
       validate: {
@@ -34,12 +34,12 @@ const userSchema = Schema(
         message: "please provide a valid mobile number",
       },
     },
-    pasword: {
+    password: {
       type: String,
       minLength: 8,
       required: [true, "please provide password"],
     },
-    comfirmPasword: {
+    comfirmPassword: {
       type: String,
       minLength: 8,
       required: [true, "please provide password"],
@@ -56,13 +56,13 @@ const userSchema = Schema(
 
 userSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
-  if (this.pasword === this.comfirmPasword) {
+  if (this.password === this.comfirmPassword) {
     this.password = await bcrypt.hash(this.password, salt);
-    this.comfirmPasword = await bcrypt.hash(this.comfirmPasword, salt);
+    this.comfirmPassword = await bcrypt.hash(this.comfirmPassword, salt);
   }
 });
 
-userModel.methods.comparePasswords = async function (userPassword) {
+userSchema.methods.comparePasswords = async function (userPassword) {
   return await bcrypt.compare(userPassword, this.password);
 };
 

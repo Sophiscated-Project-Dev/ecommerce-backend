@@ -1,20 +1,21 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError } = require("../errors/index");
+const { createToken, userToken } = require("../utils/index");
 
-//all error functions and roken function yet to be created
+//register user
 const register = async (req, res) => {
   const { firstName, lastName, email, phoneNumber, password, comfirmPassword } =
     req.body;
   if (
-    firstName ||
+    !firstName ||
     !lastName ||
     !email ||
     !phoneNumber ||
     !password ||
     !comfirmPassword
   ) {
-    throw new BadRequestError("provide registration details");
+    throw new BadRequestError("Please fill al fields");
   }
 
   const emailAlreadyExists = await User.findOne({ email });
@@ -35,7 +36,29 @@ const register = async (req, res) => {
     comfirmPassword,
     role,
   });
-  const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, user: tokenUser });
-  res.status(StatusCodes.CREATED).json({ user: tokenUser });
+  const tokenUser = userToken(user);
+  console.log(tokenUser);
+  const token = createToken({ payload: tokenUser });
+  res.status(StatusCodes.CREATED).json({ token });
 };
+
+//login user
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new BadRequestError("provide email and password");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new BadRequestError("invalid details");
+  }
+  const verifyPassword = await user.comparePasswords(password);
+  if (!verifyPassword) {
+    throw new BadRequestError("invalid password");
+  }
+  const tokenUser = userToken(user);
+  const token = createToken({ payload: tokenUser });
+  res.json({ token });
+};
+
+module.exports = { register, loginUser };
