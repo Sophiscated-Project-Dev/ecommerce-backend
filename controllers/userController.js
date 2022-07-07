@@ -2,7 +2,6 @@ const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError } = require("../errors/index");
 const { createToken, userToken, addTokonToCookie } = require("../utils/index");
-const bcrypt = require("bcryptjs");
 
 
 
