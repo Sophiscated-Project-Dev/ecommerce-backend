@@ -2,6 +2,9 @@ const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError } = require("../errors/index");
 const { createToken, userToken, addTokonToCookie } = require("../utils/index");
+const bcrypt = require("bcryptjs");
+
+
 
 //register user
 const register = async (req, res) => {
@@ -63,4 +66,25 @@ const loginUser = async (req, res) => {
 };
 
 //update user
-module.exports = { register, loginUser };
+const updateUser = async (req, res) => {
+  const { password } = req.body
+    if (password) {
+      try {
+        const salt = await bcrypt.getSalt(10);
+        req.body.password = await bcrypt.hash(req.body.password, salt, process.env.SECRET).toString();
+      } catch (err) {
+        res.status(500).json()
+      }
+    }
+    try{
+      const user = await User.findByIdAndUpdate(req.params.id, {
+        $set: req.body
+      }, { new: true });
+      ;
+      res.status(StatusCodes.CREATED).json({user})
+    } catch(err) {
+      res.status(500).json(err)
+    }
+}
+
+module.exports = { register, loginUser, updateUser };
