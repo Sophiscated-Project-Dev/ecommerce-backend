@@ -67,24 +67,14 @@ const loginUser = async (req, res) => {
 
 //update user
 const updateUser = async (req, res) => {
-  const { password } = req.body
-    if (password) {
-      try {
-        const salt = await bcrypt.getSalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt, process.env.SECRET).toString();
-      } catch (err) {
-        res.status(500).json()
-      }
-    }
-    try{
-      const user = await User.findByIdAndUpdate(req.params.id, {
-        $set: req.body
-      }, { new: true });
-      ;
-      res.status(StatusCodes.CREATED).json({user})
-    } catch(err) {
-      res.status(500).json(err)
-    }
-}
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+};
 
 module.exports = { register, loginUser, updateUser };
