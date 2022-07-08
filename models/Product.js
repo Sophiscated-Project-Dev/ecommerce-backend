@@ -40,12 +40,12 @@ const productSchema = new Schema(
     },
     colors: {
       type: [String],
-      default: ["3ddd"],
+      default: ["#3ddd"],
       required: [true, "please provide product colors"],
     },
     freeShipping: {
       type: Boolean,
-      defaultfalse,
+      default: false,
     },
     inventory: {
       type: Number,

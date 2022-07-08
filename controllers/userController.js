@@ -15,7 +15,7 @@ const register = async (req, res) => {
     !password ||
     !comfirmPassword
   ) {
-    throw new BadRequestError("Please fill al fields");
+    throw new BadRequestError("Please fill all fields");
   }
 
   const emailAlreadyExists = await User.findOne({ email });
@@ -45,12 +45,13 @@ const register = async (req, res) => {
 //login user
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.signedCookies.token);
   if (!email || !password) {
     throw new BadRequestError("provide email and password");
   }
   const user = await User.findOne({ email });
   if (!user) {
-    throw new BadRequestError("invalid details");
+    throw new BadRequestError("invalid login details");
   }
   const verifyPassword = await user.comparePasswords(password);
   if (!verifyPassword) {
@@ -59,7 +60,7 @@ const loginUser = async (req, res) => {
   const tokenUser = userToken(user);
   const token = createToken({ payload: tokenUser });
   addTokonToCookie({ res, user: tokenUser });
-  res.json({ user: token });
+  res.status(StatusCodes.OK).json({ user: token });
 };
 
 //update user
