@@ -70,4 +70,4 @@ reviewSchema.post("remove", async function () {
   await this.constructor.averageRating(this.product);
 });
 
-module.epxorts = model("Review", reviewSchema);
+module.exports = model("Review", reviewSchema);

@@ -14,10 +14,10 @@ const decodeToken = (token) => {
 //add token tocookie
 const addTokonToCookie = ({ res, user }) => {
   const token = createToken({ payload: user });
-  const cookieExpiration = 1000 * 60 * 60 * 24; //24hrs for now
+  const cookieExpiration = 1000 * 60 * 60 * 1; //24hrs for now
   res.cookie("token", token, {
     httpOnly: true,
-    expires: Date.now() + cookieExpiration,
+    expires: new Date(Date.now() + cookieExpiration),
     secure: process.env.NODE_ENV === "production",
     signed: true,
   });
