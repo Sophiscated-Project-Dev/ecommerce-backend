@@ -78,4 +78,5 @@ const getUser = async (req, res) => {
 };
 
 //update user
+
 module.exports = { register, loginUser, logout, getAllUsers, getUser };
