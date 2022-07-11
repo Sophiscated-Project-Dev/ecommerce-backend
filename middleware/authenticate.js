@@ -1,7 +1,7 @@
 const { decodeToken } = require("../utils");
 const { UnauthenticatedError, UnauthorizedError } = require("../errors/index");
 
-const authenticateUsser = async (req, res, next) => {
+const authenticateUser = async (req, res, next) => {
   let token;
   const cookieToken = req.signedCookies.token;
   const authHeader = req.headers.authorization;
@@ -33,4 +33,4 @@ const authorizePermissions = (...roles) => {
   };
 };
 
-module.exports = { authenticateUsser, authorizePermissions };
+module.exports = { authenticateUser, authorizePermissions };
