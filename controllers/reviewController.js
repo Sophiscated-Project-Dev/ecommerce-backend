@@ -2,6 +2,7 @@ const Review = require("../models/Review");
 const Product = require("../models/Product");
 const { StatusCodes } = require("http-status-codes");
 const { NotFoundError, BadRequestError } = require("../errors/index");
+const { grantUserPermission } = require("../utils/index");
 
 const createReview = async (req, res) => {
   const { product: productId } = req.body;
@@ -23,9 +24,61 @@ const createReview = async (req, res) => {
 };
 
 //all reviews
-const getAllReviews = async (req, res) => {};
+const getAllReviews = async (req, res) => {
+  const reviews = await Review.find({}).populate({
+    path: "product",
+    select: "name company price description",
+  });
+  if (!reviews) {
+    throw new NotFoundError("no review found");
+  }
+  res.status(StatusCodes.OK).json({ reviews });
+};
 
 //single review
-const getSingleReview = async (req, res) => {};
+const getSingleReview = async (req, res) => {
+  const review = await Review.findOne({ _id: req.params.id });
+  if (!review) {
+    throw new NotFoundError(`review with the id: ${req.params.id} not found`);
+  }
+  res.status(StatusCodes.OK).json({ review });
+};
 
-module.exports = { createReview };
+const updateReview = async (req, res) => {
+  const { id: reviewId } = req.params;
+  const { title, rating, comment } = req.body;
+  const review = await Review.findOne({ _id: reviewId });
+  grantUserPermission(req.user, review.user);
+  const updatedReview = await Review.findOneAndUpdate(
+    { _id: reviewId },
+    { title, rating, comment },
+    { new: true, runValidators: true }
+  );
+  if (!updatedReview) {
+    throw new BadRequestError(
+      `failed to update product with the id: ${productId}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ review: updatedReview });
+};
+
+const deleteReview = async (req, res) => {
+  const { id: reviewId } = req.params;
+  const review = await Review.findOne({ _id: reviewId });
+  grantUserPermission(req.user, review.user);
+  const deletedReview = await Review.findOneAndDelete({ _id: reviewId });
+  if (!deletedReview) {
+    throw new BadRequestError(
+      `failed to delete product with the id: ${productId}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ review: deletedReview });
+};
+
+module.exports = {
+  createReview,
+  updateReview,
+  deleteReview,
+  getAllReviews,
+  getSingleReview,
+};

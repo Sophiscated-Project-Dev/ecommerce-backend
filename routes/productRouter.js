@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  authenticateUsser,
+  authenticateUser,
   authorizePermissions,
 } = require("../middleware/authenticate");
 const {
@@ -15,12 +15,12 @@ const {
 router.route("/uploads").post(uploadImage);
 router
   .route("/")
-  .post([authenticateUsser, authorizePermissions("admin")], createProduct)
+  .post([authenticateUser, authorizePermissions("admin")], createProduct)
   .get(getAllProducts);
 router
   .route("/:id")
-  .patch([authenticateUsser, authorizePermissions("admin")], updateProduct)
+  .patch([authenticateUser, authorizePermissions("admin")], updateProduct)
   .get(getSingleProduct)
-  .delete([authenticateUsser, authorizePermissions("admin")], deletProduct);
+  .delete([authenticateUser, authorizePermissions("admin")], deletProduct);
 
 module.exports = router;

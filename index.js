@@ -20,6 +20,7 @@ cloudinary.config({
 //routers
 const userRouter = require("./routes/userRouter");
 const productRouter = require("./routes/productRouter");
+const reviewRouter = require("./routes/reviewRouter");
 
 const notFound = require("./middleware/not-found");
 
@@ -31,6 +32,7 @@ app.use(fileUpload({ useTempFiles: true }));
 //app routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 app.use(notFound);
 

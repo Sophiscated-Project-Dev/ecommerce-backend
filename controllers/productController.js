@@ -7,7 +7,7 @@ const Review = require("../models/Review");
 
 //create product
 const createProduct = async (req, res) => {
-  /**req.body.user = req.user.userId;*/
+  req.body.user = req.user.userId;
   const {} = req.body;
   const product = await Product.create(req.body);
   res.status(StatusCodes.CREATED).json({ product });
@@ -41,12 +41,7 @@ const getAllProducts = async (req, res) => {
 //get single product
 const getSingleProduct = async (req, res) => {
   const { id: productId } = req.params;
-  const reviews = await Review.find({ _id: productId });
-  let product;
-  if (!reviews) {
-    product = await Product.findOne({ _id: productId });
-  }
-  product = await Product.findOne({ _id: productId }).populate("reviews");
+  const product = await Product.findOne({ _id: productId }).populate("reviews");
   if (!product) {
     throw new NotFoundError(`product with this id: ${productId} not found`);
   }
