@@ -8,6 +8,8 @@ const {
   grantUserPermission,
 } = require("../utils/index");
 
+
+
 //register user
 const register = async (req, res) => {
   const { email } = req.body;
@@ -78,4 +80,15 @@ const getUser = async (req, res) => {
 };
 
 //update user
-module.exports = { register, loginUser, logout, getAllUsers, getUser };
+const updateUser = async (req, res) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+};
+
+module.exports = { register, loginUser, logout, getAllUsers, getUser, updateUser};
