@@ -14,6 +14,6 @@ router.route("/login").post(loginUser);
 router.route("/logout").get(logout);
 router.route("/").get(getAllUsers);
 router.route("/single-user").get(authenticateUser, getUser);
-router.route("/:id").put(updateUser)
+router.route("/:id").put(updateUser, authenticateUser)
 
 module.exports = router;
