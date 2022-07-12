@@ -7,7 +7,7 @@ const productSchema = new Schema(
       type: String,
       trim: true,
       required: [true, "please provide product name"],
-      maxlength: [80, "name can not be more than 80 characters"],
+      maxlength: [200, "name can not be more than 80 characters"],
     },
     price: {
       type: Number,
@@ -22,7 +22,7 @@ const productSchema = new Schema(
       type: String,
       required: [true, "please provide product category"],
       maxlength: [
-        700,
+        2000,
         "product description can not be more than 700 characters",
       ],
     },
@@ -61,8 +61,8 @@ const productSchema = new Schema(
       default: 0,
     },
     size: {
-      type: String,
-      default: "size",
+      type: [String],
+      default: ["size"],
     },
     user: {
       type: Schema.Types.ObjectId,
