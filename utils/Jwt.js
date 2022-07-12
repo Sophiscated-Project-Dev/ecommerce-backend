@@ -17,7 +17,7 @@ const addTokonToCookie = ({ res, user }) => {
   const cookieExpiration = 1000 * 60 * 60 * 1; //24hrs for now
   res.cookie("token", token, {
     httpOnly: true,
-    expire: Date.now() + cookieExpiration,
+    expires: new Date(Date.now() + cookieExpiration),
     secure: process.env.NODE_ENV === "production",
     signed: true,
   });
