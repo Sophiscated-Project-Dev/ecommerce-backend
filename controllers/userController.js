@@ -59,7 +59,9 @@ const logout = (req, res) => {
 
 // get all users
 const getAllUsers = async (req, res) => {
-  const users = await User.find({ role: "user" }).select("-password");
+  const users = await User.find({ role: "user" }).select(
+    "-password -comfirmPassword"
+  );
   if (!users) {
     throw new BadRequestError(`no user found`);
   }
