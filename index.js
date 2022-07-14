@@ -7,6 +7,9 @@ require("express-async-errors");
 const cookieParser = require("cookie-parser");
 const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
+const helmet = require("helmet");
+const xss = require("xss-clean");
 
 //database
 const cnonnectDb = require("./db/connectdb");
@@ -28,6 +31,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.SECRET));
 app.use(fileUpload({ useTempFiles: true }));
+app.use(helmet());
+app.use(cors());
+app.use(xss());
 
 //app routes
 app.use("/api/v1/users", userRouter);
