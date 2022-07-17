@@ -1,0 +1,780 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "sophs ecommerce api",
+    "contact": {
+      "name": "Ebune Daniel Yahya",
+      "email": "ebunedy@gmail.com"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://sophdev.herokuapp.com",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/api/v1/users/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "login user",
+        "operationId": "loginuser",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginrequest"
+              },
+              "example": {
+                "email": "example@gmail.com",
+                "password": "password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/api/v1/users/register": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "register user",
+        "operationId": "registeruser",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/registerrequest"
+              },
+              "example": {
+                "firstName": "ebune",
+                "lastName": "daniel",
+                "email": "example@gmail.com",
+                "phoneNumber": "08122222222",
+                "password": "password",
+                "comfirmPassword": "password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/api/v1/users/logout": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "logout user",
+        "operationId": "logoutuser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "get-all-users",
+        "operationId": "get-all-users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/api/v1/users/single-user": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "get-single-user",
+        "operationId": "get-single-user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/products/uploads": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "image-upload",
+        "operationId": "image-upload",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/products": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "create-product",
+        "operationId": "create-product",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create-product-request"
+              },
+              "example": {
+                "name": "headset",
+                "category": "funiture",
+                "description": "a good headset",
+                "specification": "product specification",
+                "featured": false,
+                "price": 6,
+                "images": [
+                  "https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg",
+                  "https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg"
+                ],
+                "company": "our company",
+                "colors": ["cyan", "red"],
+                "freeShipping": false,
+                "inventory": 20,
+                "size": ["m", "xl"],
+                "user": "62b731103f4fb7f974be4bec"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      },
+      "get": {
+        "tags": ["Products"],
+        "summary": "get-all-products",
+        "operationId": "get-all-products",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "sort products by category. e.g computer, women fashion",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "women fashion"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "sort products by oldest or latest",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "latest"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "for pagination",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search products by a word found in product name",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "men sneakers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/api/v1/products/62c6efb49360f2224df3a0f4": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "get-single-product",
+        "operationId": "get-single-product",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["Products"],
+        "summary": "update-product",
+        "operationId": "update-product",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/update-product-request"
+              },
+              "example": {
+                "name": "headset",
+                "category": "funiture",
+                "description": "excellent headset",
+                "images": [
+                  "https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg",
+                  "https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg"
+                ],
+                "company": "our company",
+                "colors": ["green", "blue"],
+                "user": "62b731103f4fb7f974be4bec",
+                "price": 6
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/api/v1/reviews": {
+      "post": {
+        "tags": ["reviews"],
+        "summary": "create-review",
+        "operationId": "create-review",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create-review-request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      },
+      "get": {
+        "tags": ["reviews"],
+        "summary": "get-all-reviews",
+        "operationId": "get-all-reviews",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/api/v1/reviews/62cc0c3e0dd911d9035d86c1": {
+      "get": {
+        "tags": ["reviews"],
+        "summary": "get-single-review",
+        "operationId": "get-single-review",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["reviews"],
+        "summary": "update-review",
+        "operationId": "update-review",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "title": "great product",
+                  "rating": 4,
+                  "comment": "A great product, worth every penny I paid for"
+                }
+              },
+              "example": {
+                "title": "great product",
+                "rating": 4,
+                "comment": "A great product, worth every penny I paid for"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["reviews"],
+        "summary": "delete-review",
+        "operationId": "delete-review",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "loginrequest": {
+        "title": "loginrequest",
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "description": "",
+        "example": {
+          "email": "example@gmail.com",
+          "password": "password"
+        }
+      },
+      "registerrequest": {
+        "title": "registerrequest",
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "phoneNumber",
+          "password",
+          "comfirmPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "comfirmPassword": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "firstName": "ebune",
+          "lastName": "daniel",
+          "email": "example@gmail.com",
+          "phoneNumber": "08120776546",
+          "password": "password",
+          "comfirmPassword": "pasword"
+        }
+      },
+      "create-product-request": {
+        "title": "create-product-request",
+        "required": [
+          "name",
+          "category",
+          "description",
+          "images",
+          "company",
+          "colors",
+          "user",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "company": {
+            "type": "string"
+          },
+          "colors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "user": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "name": "headset",
+          "category": "funiture",
+          "description": "a goood furniture",
+          "images": [
+            "https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg",
+            "https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg"
+          ],
+          "company": "our company",
+          "colors": ["cyan", "red"],
+          "user": "62b731103f4fb7f974be4bec",
+          "price": 6
+        }
+      },
+      "update-product-request": {
+        "title": "update-product-request",
+        "required": [
+          "name",
+          "category",
+          "description",
+          "images",
+          "company",
+          "colors",
+          "user",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "company": {
+            "type": "string"
+          },
+          "colors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "user": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "name": "headset",
+          "category": "funiture",
+          "description": "a goood furniture",
+          "images": [
+            "https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg",
+            "https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg"
+          ],
+          "company": "our company",
+          "colors": ["green", "blue"],
+          "user": "62b731103f4fb7f974be4bec",
+          "price": 6
+        }
+      },
+      "login-user-request": {
+        "title": "login-user-request",
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "email": "example2@gmail.com",
+          "password": "example233"
+        }
+      },
+      "create-user-request": {
+        "title": "create-user-request",
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "phoneNumber",
+          "password",
+          "comfirmPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "comfirmPassword": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "firstName": "soph",
+          "lastName": "dev",
+          "email": "example2@gmail.com",
+          "phoneNumber": "08120776546",
+          "password": "example233",
+          "comfirmPassword": "example233"
+        }
+      },
+      "create-review-request": {
+        "title": "create-review-request",
+        "required": ["title", "rating", "comment", "user", "product"],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "title": "great product",
+          "rating": 4,
+          "comment": "A great product, worth every penny I paid for",
+          "user": "62cc00fc48d0579a3ecb7b76",
+          "product": "62c8038c551f16bfb1e199b0"
+        }
+      }
+    },
+    "securitySchemes": {
+      "httpBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "httpBearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Products"
+    },
+    {
+      "name": "page-not-found"
+    },
+    {
+      "name": "reviews"
+    }
+  ]
+}

@@ -11,8 +11,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const swaggerUI = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml')
+//const YAML = require('yamljs');
+const swaggerDocument = require('./swagger.json')
 
 //database
 const cnonnectDb = require("./db/connectdb");
