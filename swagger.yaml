@@ -142,8 +142,10 @@ paths:
               featured: false
               price: 6
               images:
-                - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-                - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+                - >-
+                  https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+                - >-
+                  https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
               company: our company
               colors:
                 - cyan
@@ -242,8 +244,10 @@ paths:
               category: funiture
               description: excellent headset
               images:
-                - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-                - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+                - >-
+                  https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+                - >-
+                  https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
               company: our company
               colors:
                 - green
@@ -448,8 +452,10 @@ components:
         category: funiture
         description: a goood furniture
         images:
-          - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-          - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+          - >-
+            https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+          - >-
+            https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
         company: our company
         colors:
           - cyan
@@ -497,8 +503,10 @@ components:
         category: funiture
         description: a goood furniture
         images:
-          - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-          - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+          - >-
+            https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+          - >-
+            https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
         company: our company
         colors:
           - green
