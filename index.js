@@ -10,9 +10,9 @@ const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const helmet = require("helmet");
 const xss = require("xss-clean");
-const swaggerUI = require('swagger-ui-express');
+const swaggerUI = require("swagger-ui-express");
 //const YAML = require('yamljs');
-const swaggerDocument = require('./swagger.json')
+const swaggerDocument = require("./swagger.json");
 
 //database
 const cnonnectDb = require("./db/connectdb");
@@ -42,7 +42,7 @@ app.use(xss());
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
-app.get('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.get("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(notFound);
 
 //test route
