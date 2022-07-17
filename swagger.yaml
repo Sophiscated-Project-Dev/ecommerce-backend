@@ -153,7 +153,7 @@ paths:
               size:
                 - m
                 - xl
-              user: 62b731103f4fb7f974be4bedd
+              user: 62b731103f4fb7
         required: true
       responses:
         "200":
@@ -210,7 +210,7 @@ paths:
       servers:
         - url: https://sophdev.herokuapp.com
           variables: {}
-  /api/v1/products/{id}:
+  /api/v1/products/62c6efb49360f22:
     get:
       tags:
         - Products
@@ -248,7 +248,7 @@ paths:
               colors:
                 - green
                 - blue
-              user: 62b731103f4fb7f974be4becd
+              user: 62b731103f4f
               price: 6
         required: true
       responses:
@@ -276,8 +276,8 @@ paths:
               title: great product
               rating: 4
               comment: A great product, worth every penny I paid for
-              user: 62cc00fc48d0579a3ecb7b75
-              product: 62c8038c551f16bfb1e199b12
+              user: 62cc00fc48d0579a3e
+              product: 62c8038c551f16bf
         required: true
       responses:
         "200":
@@ -302,7 +302,7 @@ paths:
       servers:
         - url: https://sophdev.herokuapp.com
           variables: {}
-  /api/v1/reviews/{id}:
+  /api/v1/reviews/62cc0c3e0dd91:
     get:
       tags:
         - reviews
@@ -454,7 +454,7 @@ components:
         colors:
           - cyan
           - red
-        user: 62b731103f4fb7f974be4bed
+        user: 62b731103f4fb7f
         price: 6
     update-product-request:
       title: update-product-request
@@ -503,7 +503,7 @@ components:
         colors:
           - green
           - blue
-        user: 62b731103f4fb7f974be4bed
+        user: 62b731103f4fb7
         price: 6
     login-user-request:
       title: login-user-request
@@ -518,7 +518,7 @@ components:
           type: string
       example:
         email: example2@gmail.com
-        password: password
+        password: example233
     create-user-request:
       title: create-user-request
       required:
@@ -574,8 +574,8 @@ components:
         title: great product
         rating: 4
         comment: A great product, worth every penny I paid for
-        user: 62cc00fc48d0579a3ecb7b76
-        product: 62c8038c551f16bfb1e199b0
+        user: 62cc00fc48d0579a3
+        product: 62c8038c551f16b
   securitySchemes:
     httpBearer:
       type: http
