@@ -12,7 +12,9 @@ const {
   deletProduct,
 } = require("../controllers/productController");
 
-router.route("/uploads").post(uploadImage);
+router
+  .route("/uploads")
+  .post([authenticateUser, authorizePermissions("admin")], uploadImage);
 router
   .route("/")
   .post([authenticateUser, authorizePermissions("admin")], createProduct)

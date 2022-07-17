@@ -20,11 +20,19 @@ const productSchema = new Schema(
     },
     description: {
       type: String,
-      required: [true, "please provide product category"],
+      required: [true, "please provide product description"],
       maxlength: [
         2000,
         "product description can not be more than 700 characters",
       ],
+    },
+    specification: {
+      type: String,
+      maxlength: [
+        2000,
+        "product description can not be more than 700 characters",
+      ],
+      default: "product specification",
     },
     featured: {
       type: Boolean,
