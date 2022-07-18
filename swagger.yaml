@@ -1,19 +1,18 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: sophs ecommerce api
   contact:
     name: Ebune Daniel Yahya
     email: ebunedy@gmail.com
-  version: '1.0'
-jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+  version: "1.0"
 servers:
-- url: https://sophdev.herokuapp.com
-  variables: {}
+  - url: https://sophdev.herokuapp.com
+    variables: {}
 paths:
   /api/v1/users/login:
     post:
       tags:
-      - Users
+        - Users
       summary: login user
       operationId: loginuser
       parameters: []
@@ -22,25 +21,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/loginrequest'
+              $ref: "#/components/schemas/loginrequest"
             example:
               email: example@gmail.com
               password: password
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
+        - url: https://sophdev.herokuapp.com
+          variables: {}
   /api/v1/users/register:
     post:
       tags:
-      - Users
+        - Users
       summary: register user
       operationId: registeruser
       parameters: []
@@ -49,89 +47,68 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/registerrequest'
+              $ref: "#/components/schemas/registerrequest"
             example:
               firstName: ebune
               lastName: daniel
               email: example@gmail.com
-              phoneNumber: '08122222222'
+              phoneNumber: "08122222222"
               password: password
               comfirmPassword: password
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
-  /api/v1/users/logout:
-    get:
-      tags:
-      - Users
-      summary: logout user
-      operationId: logoutuser
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          headers: {}
-      deprecated: false
-      security: []
-      servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
+        - url: https://sophdev.herokuapp.com
+          variables: {}
   /api/v1/users:
     get:
       tags:
-      - Users
+        - Users
       summary: get all users
       operationId: getallusers
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
+        - url: https://sophdev.herokuapp.com
+          variables: {}
   /api/v1/users/single-user:
     get:
       tags:
-      - Users
+        - Users
       summary: get single user
       operationId: getsingleuser
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
-    parameters: []
   /api/v1/products/uploads:
     post:
       tags:
-      - Products
+        - Products
       summary: image upload
       operationId: imageupload
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
-    parameters: []
   /api/v1/products:
     post:
       tags:
-      - Products
+        - Products
       summary: create product
       operationId: createproduct
       parameters: []
@@ -140,7 +117,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createproductrequest'
+              $ref: "#/components/schemas/createproductrequest"
             example:
               name: headset
               category: phone accessory
@@ -149,99 +126,93 @@ paths:
               featured: false
               price: 6
               images:
-              - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-              - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+                - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+                - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
               company: our company
               colors:
-              - cyan
-              - red
+                - cyan
+                - red
               freeShipping: false
               inventory: 20
               size:
-              - m
-              - xl
+                - m
+                - xl
               user: 62b731103f4fb7f974b
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
+        - url: https://sophdev.herokuapp.com
+          variables: {}
     get:
       tags:
-      - Products
+        - Products
       summary: get all products
       operationId: getallproducts
       parameters:
-      - name: category
-        in: query
-        description: sort products by category. e.g computer, women fashion
-        style: form
-        explode: true
-        schema:
-          type: string
-          examples:
-          - women fashion
-      - name: sort
-        in: query
-        description: sort products by oldest or latest
-        style: form
-        explode: true
-        schema:
-          type: string
-          examples:
-          - latest
-      - name: page
-        in: query
-        description: for pagination
-        style: form
-        explode: true
-        schema:
-          type: string
-          examples:
-          - '1'
-      - name: search
-        in: query
-        description: search products by a word found in product name
-        style: form
-        explode: true
-        schema:
-          type: string
-          examples:
-          - men sneakers
+        - name: category
+          in: query
+          description: sort products by category. e.g computer, women fashion
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: women fashion
+        - name: sort
+          in: query
+          description: sort products by oldest or latest
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: latest
+        - name: page
+          in: query
+          description: for pagination
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: "1"
+        - name: search
+          in: query
+          description: search products by a word found in product name
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: men sneakers
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
-  /api/v1/products/62c6efb49360f2224df3a0f4:
+        - url: https://sophdev.herokuapp.com
+          variables: {}
+  /api/v1/products/:id:
     get:
       tags:
-      - Products
+        - Products
       summary: get single product
       operationId: getsingleproduct
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
-  /api/v1/products/62c6efb4:
+        - url: https://sophdev.herokuapp.com
+          variables: {}
+  /api/v1/products/id:
     patch:
       tags:
-      - Products
+        - Products
       summary: update product
       operationId: updateproduct
       parameters: []
@@ -250,50 +221,48 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateproductrequest'
+              $ref: "#/components/schemas/updateproductrequest"
             example:
               name: headset
               category: phone accessory
               description: excellent headset
               images:
-              - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-              - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+                - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+                - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
               company: our company
               colors:
-              - green
-              - blue
+                - green
+                - blue
               user: 62b731103f4fb7f974be4bec
               price: 6
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
-  /api/v1/products/62c6efb:
+        - url: https://sophdev.herokuapp.com
+          variables: {}
+  /api/v1/products/6567555666777:
     get:
       tags:
-      - Products
+        - Products
       summary: delete-product
       operationId: delete-product
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
+        - url: https://sophdev.herokuapp.com
+          variables: {}
   /api/v1/reviews:
     post:
       tags:
-      - reviews
+        - reviews
       summary: create review
       operationId: createreview
       parameters: []
@@ -302,127 +271,117 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createreviewrequest'
-            example:
-              title: great product
-              rating: 4
-              comment: A great product, worth every penny I paid for
-              product: 62c8038c551f16bfb1e199b0
+              $ref: "#/components/schemas/createreviewrequest"
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
+        - url: https://sophdev.herokuapp.com
+          variables: {}
     get:
       tags:
-      - reviews
+        - reviews
       summary: get all reviews
       operationId: getallreviews
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
-  /api/v1/reviews/62cc0c3e0dd911d9035:
+        - url: https://sophdev.herokuapp.com
+          variables: {}
+  /api/v1/reviews/:id:
     get:
       tags:
-      - reviews
+        - reviews
       summary: get single review
       operationId: getsinglereview
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
-  /api/v1/reviews/62cc0c3e0dd911d90:
+        - url: https://sophdev.herokuapp.com
+          variables: {}
+  /api/v1/reviews/id:
     patch:
       tags:
-      - reviews
+        - reviews
       summary: update review
       operationId: updatereview
       parameters: []
       requestBody:
-        description: ''
+        description: ""
         content:
           text/plain:
             schema:
               type: string
-              examples:
-              - title: great product
+              example:
+                title: great product
                 rating: 4
                 comment: A great product, worth every penny I paid for
-              contentMediaType: text/plain
             example:
               title: great product
               rating: 4
               comment: A great product, worth every penny I paid for
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
-  /api/v1/reviews/62cc0c3e0dd911:
+        - url: https://sophdev.herokuapp.com
+          variables: {}
+  /api/v1/reviews/62cc0c3e0dd91:
     delete:
       tags:
-      - reviews
+        - reviews
       summary: delete review
       operationId: deletereview
       parameters: []
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       servers:
-      - url: https://sophdev.herokuapp.com
-        variables: {}
-    parameters: []
+        - url: https://sophdev.herokuapp.com
+          variables: {}
 components:
   schemas:
     loginrequest:
       title: loginrequest
       required:
-      - email
-      - password
+        - email
+        - password
       type: object
       properties:
         email:
           type: string
         password:
           type: string
-      description: ''
-      examples:
-      - email: example@gmail.com
+      description: ""
+      example:
+        email: example@gmail.com
         password: password
     registerrequest:
       title: registerrequest
       required:
-      - firstName
-      - lastName
-      - email
-      - phoneNumber
-      - password
-      - comfirmPassword
+        - firstName
+        - lastName
+        - email
+        - phoneNumber
+        - password
+        - comfirmPassword
       type: object
       properties:
         firstName:
@@ -437,24 +396,24 @@ components:
           type: string
         comfirmPassword:
           type: string
-      examples:
-      - firstName: ebune
+      example:
+        firstName: ebune
         lastName: daniel
         email: example@gmail.com
-        phoneNumber: '08120776546'
+        phoneNumber: "08120776546"
         password: password
         comfirmPassword: pasword
     createproductrequest:
       title: createproductrequest
       required:
-      - name
-      - category
-      - description
-      - images
-      - company
-      - colors
-      - user
-      - price
+        - name
+        - category
+        - description
+        - images
+        - company
+        - colors
+        - user
+        - price
       type: object
       properties:
         name:
@@ -467,43 +426,50 @@ components:
           type: array
           items:
             type: string
-          description: ''
+          description: ""
         company:
           type: string
         colors:
           type: array
           items:
             type: string
-          description: ''
+          description: ""
         user:
           type: string
         price:
           type: integer
-          contentEncoding: int32
-      examples:
-      - name: headset
-        category: funiture
-        description: a goood furniture
+          format: int32
+      example:
+        name: headset
+        category: phone accessory
+        description: a good headset
+        specification: product specification
+        featured: false
+        price: 6
         images:
-        - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-        - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+          - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+          - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
         company: our company
         colors:
-        - cyan
-        - red
-        user: 62b731103f4fb7f974be4bec
-        price: 6
+          - cyan
+          - red
+        freeShipping: false
+        inventory: 20
+        size:
+          - m
+          - xl
+        user: 62b731103f4fb7f974b
     updateproductrequest:
       title: updateproductrequest
       required:
-      - name
-      - category
-      - description
-      - images
-      - company
-      - colors
-      - user
-      - price
+        - name
+        - category
+        - description
+        - images
+        - company
+        - colors
+        - user
+        - price
       type: object
       properties:
         name:
@@ -516,99 +482,55 @@ components:
           type: array
           items:
             type: string
-          description: ''
+          description: ""
         company:
           type: string
         colors:
           type: array
           items:
             type: string
-          description: ''
+          description: ""
         user:
           type: string
         price:
           type: integer
-          contentEncoding: int32
-      examples:
-      - name: headset
+          format: int32
+      example:
+        name: headset
         category: funiture
         description: a goood furniture
         images:
-        - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
-        - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
+          - https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg
+          - https://res.cloudinary.com/sophdev/image/upload/v1657189727/file-upload/tmp-2-1657189723524.jpg
         company: our company
         colors:
-        - green
-        - blue
+          - green
+          - blue
         user: 62b731103f4fb7f974be4bec
         price: 6
-    loginuserrequest:
-      title: loginuserrequest
-      required:
-      - email
-      - password
-      type: object
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-      examples:
-      - email: example2@gmail.com
-        password: example233
-    createuserrequest:
-      title: createuserrequest
-      required:
-      - firstName
-      - lastName
-      - email
-      - phoneNumber
-      - password
-      - comfirmPassword
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        password:
-          type: string
-        comfirmPassword:
-          type: string
-      examples:
-      - firstName: soph
-        lastName: dev
-        email: example2@gmail.com
-        phoneNumber: '08120776546'
-        password: example233
-        comfirmPassword: example233
     createreviewrequest:
       title: createreviewrequest
       required:
-      - title
-      - rating
-      - comment
-      - user
-      - product
+        - title
+        - rating
+        - comment
+        - user
+        - product
       type: object
       properties:
         title:
           type: string
         rating:
           type: integer
-          contentEncoding: int32
+          format: int32
         comment:
           type: string
         user:
           type: string
         product:
           type: string
-      examples:
-      - title: great product
+      example:
+        title: great product
         rating: 4
         comment: A great product, worth every penny I paid for
         user: 62cc00fc48d0579a3ecb7b76
@@ -618,9 +540,8 @@ components:
       type: http
       scheme: bearer
 security:
-- httpBearer: []
+  - httpBearer: []
 tags:
-- name: Users
-- name: Products
-- name: page-not-found
-- name: reviews
+  - name: Users
+  - name: Products
+  - name: reviews
