@@ -22,7 +22,7 @@
         "operationId": "loginuser",
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "log a user in",
           "content": {
             "application/json": {
               "schema": {
@@ -59,7 +59,7 @@
         "operationId": "registeruser",
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "create a user",
           "content": {
             "application/json": {
               "schema": {
@@ -118,8 +118,8 @@
     "/api/v1/users": {
       "get": {
         "tags": ["Users"],
-        "summary": "get-all-users",
-        "operationId": "get-all-users",
+        "summary": "get all users",
+        "operationId": "getallusers",
         "parameters": [],
         "responses": {
           "200": {
@@ -140,8 +140,8 @@
     "/api/v1/users/single-user": {
       "get": {
         "tags": ["Users"],
-        "summary": "get-single-user",
-        "operationId": "get-single-user",
+        "summary": "get single user",
+        "operationId": "getsingleuser",
         "parameters": [],
         "responses": {
           "200": {
@@ -155,8 +155,8 @@
     "/api/v1/products/uploads": {
       "post": {
         "tags": ["Products"],
-        "summary": "image-upload",
-        "operationId": "image-upload",
+        "summary": "image upload",
+        "operationId": "imageupload",
         "parameters": [],
         "responses": {
           "200": {
@@ -170,19 +170,19 @@
     "/api/v1/products": {
       "post": {
         "tags": ["Products"],
-        "summary": "create-product",
-        "operationId": "create-product",
+        "summary": "create product",
+        "operationId": "createproduct",
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "create a product",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/create-product-request"
+                "$ref": "#/components/schemas/createproductrequest"
               },
               "example": {
                 "name": "headset",
-                "category": "funiture",
+                "category": "phone accessory",
                 "description": "a good headset",
                 "specification": "product specification",
                 "featured": false,
@@ -196,7 +196,7 @@
                 "freeShipping": false,
                 "inventory": 20,
                 "size": ["m", "xl"],
-                "user": "62b731103f4fb7f974be4bec"
+                "user": "62b731103f4fb7f974b"
               }
             }
           },
@@ -218,8 +218,8 @@
       },
       "get": {
         "tags": ["Products"],
-        "summary": "get-all-products",
-        "operationId": "get-all-products",
+        "summary": "get all products",
+        "operationId": "getallproducts",
         "parameters": [
           {
             "name": "category",
@@ -285,8 +285,8 @@
     "/api/v1/products/62c6efb49360f2224df3a0f4": {
       "get": {
         "tags": ["Products"],
-        "summary": "get-single-product",
-        "operationId": "get-single-product",
+        "summary": "get single product",
+        "operationId": "getsingleproduct",
         "parameters": [],
         "responses": {
           "200": {
@@ -301,22 +301,24 @@
             "variables": {}
           }
         ]
-      },
+      }
+    },
+    "/api/v1/products/62c6efb4": {
       "patch": {
         "tags": ["Products"],
-        "summary": "update-product",
-        "operationId": "update-product",
+        "summary": "update product",
+        "operationId": "updateproduct",
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "update product",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/update-product-request"
+                "$ref": "#/components/schemas/updateproductrequest"
               },
               "example": {
                 "name": "headset",
-                "category": "funiture",
+                "category": "phone accessory",
                 "description": "excellent headset",
                 "images": [
                   "https://res.cloudinary.com/sophdev/image/upload/v1657188985/file-upload/tmp-1-1657188982781.jpg",
@@ -346,18 +348,45 @@
         ]
       }
     },
+    "/api/v1/products/62c6efb": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "delete-product",
+        "operationId": "delete-product",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://sophdev.herokuapp.com",
+            "variables": {}
+          }
+        ]
+      }
+    },
     "/api/v1/reviews": {
       "post": {
         "tags": ["reviews"],
-        "summary": "create-review",
-        "operationId": "create-review",
+        "summary": "create review",
+        "operationId": "createreview",
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "review creation",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/create-review-request"
+                "$ref": "#/components/schemas/createreviewrequest"
+              },
+              "example": {
+                "title": "great product",
+                "rating": 4,
+                "comment": "A great product, worth every penny I paid for",
+                "product": "62c8038c551f16bfb1e199b0"
               }
             }
           },
@@ -379,8 +408,8 @@
       },
       "get": {
         "tags": ["reviews"],
-        "summary": "get-all-reviews",
-        "operationId": "get-all-reviews",
+        "summary": "get all reviews",
+        "operationId": "getallreviews",
         "parameters": [],
         "responses": {
           "200": {
@@ -398,11 +427,11 @@
         ]
       }
     },
-    "/api/v1/reviews/62cc0c3e0dd911d9035d86c1": {
+    "/api/v1/reviews/62cc0c3e0dd911d9035": {
       "get": {
         "tags": ["reviews"],
-        "summary": "get-single-review",
-        "operationId": "get-single-review",
+        "summary": "get single review",
+        "operationId": "getsinglereview",
         "parameters": [],
         "responses": {
           "200": {
@@ -417,11 +446,13 @@
             "variables": {}
           }
         ]
-      },
+      }
+    },
+    "/api/v1/reviews/62cc0c3e0dd911d90": {
       "patch": {
         "tags": ["reviews"],
-        "summary": "update-review",
-        "operationId": "update-review",
+        "summary": "update review",
+        "operationId": "updatereview",
         "parameters": [],
         "requestBody": {
           "description": "",
@@ -457,11 +488,13 @@
             "variables": {}
           }
         ]
-      },
+      }
+    },
+    "/api/v1/reviews/62cc0c3e0dd911": {
       "delete": {
         "tags": ["reviews"],
-        "summary": "delete-review",
-        "operationId": "delete-review",
+        "summary": "delete review",
+        "operationId": "deletereview",
         "parameters": [],
         "responses": {
           "200": {
@@ -539,8 +572,8 @@
           "comfirmPassword": "pasword"
         }
       },
-      "create-product-request": {
-        "title": "create-product-request",
+      "createproductrequest": {
+        "title": "createproductrequest",
         "required": [
           "name",
           "category",
@@ -601,8 +634,8 @@
           "price": 6
         }
       },
-      "update-product-request": {
-        "title": "update-product-request",
+      "updateproductrequest": {
+        "title": "updateproductrequest",
         "required": [
           "name",
           "category",
@@ -663,8 +696,8 @@
           "price": 6
         }
       },
-      "login-user-request": {
-        "title": "login-user-request",
+      "loginuserrequest": {
+        "title": "loginuserrequest",
         "required": ["email", "password"],
         "type": "object",
         "properties": {
@@ -680,8 +713,8 @@
           "password": "example233"
         }
       },
-      "create-user-request": {
-        "title": "create-user-request",
+      "createuserrequest": {
+        "title": "createuserrequest",
         "required": [
           "firstName",
           "lastName",
@@ -720,8 +753,8 @@
           "comfirmPassword": "example233"
         }
       },
-      "create-review-request": {
-        "title": "create-review-request",
+      "createreviewrequest": {
+        "title": "createreviewrequest",
         "required": ["title", "rating", "comment", "user", "product"],
         "type": "object",
         "properties": {
