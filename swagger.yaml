@@ -1,3 +1,4 @@
+---
 openapi: 3.0.0
 info:
   title: sophs ecommerce api
@@ -7,7 +8,12 @@ info:
   version: "1.0"
 servers:
   - url: https://sophdev.herokuapp.com
-    variables: {}
+security:
+  - httpBearer: []
+tags:
+  - name: Users
+  - name: Products
+  - name: reviews
 paths:
   /api/v1/users/login:
     post:
@@ -29,12 +35,10 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       security: []
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/users/register:
     post:
       tags:
@@ -59,12 +63,10 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       security: []
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/users:
     get:
       tags:
@@ -75,12 +77,10 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       security: []
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/users/single-user:
     get:
       tags:
@@ -91,7 +91,6 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
   /api/v1/products/uploads:
     post:
@@ -103,9 +102,57 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
   /api/v1/products:
+    get:
+      tags:
+        - Products
+      summary: get all products
+      operationId: getallproducts
+      parameters:
+        - name: category
+          in: query
+          description: sort products by category. e.g computer, women fashion
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: women fashion
+        - name: sort
+          in: query
+          description: sort products by oldest or latest
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: latest
+        - name: page
+          in: query
+          description: for pagination
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: "1"
+        - name: search
+          in: query
+          description: search products by a word found in product name
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: men sneakers
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+      security: []
+      servers:
+        - url: https://sophdev.herokuapp.com
     post:
       tags:
         - Products
@@ -142,58 +189,9 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
-    get:
-      tags:
-        - Products
-      summary: get all products
-      operationId: getallproducts
-      parameters:
-        - name: category
-          in: query
-          description: sort products by category. e.g computer, women fashion
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: women fashion
-        - name: sort
-          in: query
-          description: sort products by oldest or latest
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: latest
-        - name: page
-          in: query
-          description: for pagination
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: "1"
-        - name: search
-          in: query
-          description: search products by a word found in product name
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: men sneakers
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security: []
-      servers:
-        - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/products/:id:
     get:
       tags:
@@ -204,11 +202,9 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/products/id:
     patch:
       tags:
@@ -239,11 +235,9 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/products/6567555666777:
     get:
       tags:
@@ -254,12 +248,23 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/reviews:
+    get:
+      tags:
+        - reviews
+      summary: get all reviews
+      operationId: getallreviews
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      deprecated: false
+      security: []
+      servers:
+        - url: https://sophdev.herokuapp.com
     post:
       tags:
         - reviews
@@ -276,26 +281,9 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
-    get:
-      tags:
-        - reviews
-      summary: get all reviews
-      operationId: getallreviews
-      parameters: []
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security: []
-      servers:
-        - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/reviews/:id:
     get:
       tags:
@@ -306,11 +294,9 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/reviews/id:
     patch:
       tags:
@@ -324,23 +310,15 @@ paths:
           text/plain:
             schema:
               type: string
-              example:
-                title: great product
-                rating: 4
-                comment: A great product, worth every penny I paid for
-            example:
-              title: great product
-              rating: 4
-              comment: A great product, worth every penny I paid for
+              example: '{"title":"great product","rating":4,"comment":"A great product, worth every penny I paid for"}'
+            example: '{"title":"great product","rating":4,"comment":"A great product, worth every penny I paid for"}'
         required: true
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
   /api/v1/reviews/62cc0c3e0dd91:
     delete:
       tags:
@@ -351,11 +329,9 @@ paths:
       responses:
         "200":
           description: ""
-          headers: {}
       deprecated: false
       servers:
         - url: https://sophdev.herokuapp.com
-          variables: {}
 components:
   schemas:
     loginrequest:
@@ -376,12 +352,12 @@ components:
     registerrequest:
       title: registerrequest
       required:
+        - comfirmPassword
+        - email
         - firstName
         - lastName
-        - email
-        - phoneNumber
         - password
-        - comfirmPassword
+        - phoneNumber
       type: object
       properties:
         firstName:
@@ -406,14 +382,14 @@ components:
     createproductrequest:
       title: createproductrequest
       required:
-        - name
         - category
+        - colors
+        - company
         - description
         - images
-        - company
-        - colors
-        - user
+        - name
         - price
+        - user
       type: object
       properties:
         name:
@@ -424,16 +400,16 @@ components:
           type: string
         images:
           type: array
+          description: ""
           items:
             type: string
-          description: ""
         company:
           type: string
         colors:
           type: array
+          description: ""
           items:
             type: string
-          description: ""
         user:
           type: string
         price:
@@ -462,14 +438,14 @@ components:
     updateproductrequest:
       title: updateproductrequest
       required:
-        - name
         - category
+        - colors
+        - company
         - description
         - images
-        - company
-        - colors
-        - user
+        - name
         - price
+        - user
       type: object
       properties:
         name:
@@ -480,16 +456,16 @@ components:
           type: string
         images:
           type: array
+          description: ""
           items:
             type: string
-          description: ""
         company:
           type: string
         colors:
           type: array
+          description: ""
           items:
             type: string
-          description: ""
         user:
           type: string
         price:
@@ -511,11 +487,11 @@ components:
     createreviewrequest:
       title: createreviewrequest
       required:
-        - title
-        - rating
         - comment
-        - user
         - product
+        - rating
+        - title
+        - user
       type: object
       properties:
         title:
@@ -539,9 +515,3 @@ components:
     httpBearer:
       type: http
       scheme: bearer
-security:
-  - httpBearer: []
-tags:
-  - name: Users
-  - name: Products
-  - name: reviews
