@@ -13,9 +13,9 @@ const xss = require("xss-clean");
 
 //swagger ui
 const swaggerUi = require("swagger-ui-express");
-const YAML = require("yamljs");
-const swaggerDocument = YAML.load("./swagger.yaml");
-//const swaggerDocument = require("./swagger.json");
+//const YAML = require("yamljs");
+//const swaggerDocument = YAML.load("./swagger.yaml");
+const swaggerDocument = require("./swagger.json");
 app.get("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //database
