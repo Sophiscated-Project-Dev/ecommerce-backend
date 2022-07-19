@@ -31,6 +31,7 @@ cloudinary.config({
 const userRouter = require("./routes/userRouter");
 const productRouter = require("./routes/productRouter");
 const reviewRouter = require("./routes/reviewRouter");
+const vendorRouter = require("./routes/vendorRouter");
 
 const notFound = require("./middleware/not-found");
 
@@ -44,6 +45,7 @@ app.use(xss());
 
 //app routes
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/vendors", vendorRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use(notFound);

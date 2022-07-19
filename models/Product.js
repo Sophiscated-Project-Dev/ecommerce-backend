@@ -42,9 +42,14 @@ const productSchema = new Schema(
       type: [String],
       default: ["/uploads/couch.jpeg"],
     },
-    company: {
+    brand: {
       type: String,
-      required: [true, "please provide product company"],
+      required: [true, "please provide brand"],
+    },
+    vendor: {
+      type: Schema.Types.ObjectId,
+      ref: "Vendor",
+      required: [true, "please provide vendor"],
     },
     colors: {
       type: [String],
