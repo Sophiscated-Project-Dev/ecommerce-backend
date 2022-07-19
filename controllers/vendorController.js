@@ -11,7 +11,6 @@ const registerVendor = async (req, res) => {
   if (emailAlreadyExists) {
     throw new BadRequestError("Email already exists");
   }
-  req.body.role = "vendor";
   const vendor = await Vendor.create(req.body);
   const user = { firstName: vendor.firstName, _id: vendor._id, role: "vendor" };
   const tokenUser = userToken(user);
