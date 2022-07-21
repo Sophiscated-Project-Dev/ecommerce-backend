@@ -60,7 +60,7 @@ const logout = (req, res) => {
 // get all users
 const getAllUsers = async (req, res) => {
   let users = User.find({ role: "user" }).select("-password -comfirmPassword");
-  const page = Number(req.body.page) || 1;
+  const page = Number(req.query.page) || 1;
   const limit = 7;
   const skip = (page - 1) * limit;
   users = users.skip(skip).limit(limit);

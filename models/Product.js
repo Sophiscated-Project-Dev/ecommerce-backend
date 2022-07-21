@@ -30,7 +30,7 @@ const productSchema = new Schema(
       type: String,
       maxlength: [
         2000,
-        "product description can not be more than 700 characters",
+        "product specification can not be more than 700 characters",
       ],
       default: "product specification",
     },

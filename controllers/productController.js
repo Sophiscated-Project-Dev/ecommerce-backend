@@ -29,7 +29,7 @@ const getAllProducts = async (req, res) => {
   if (sort === "oldest") {
     sortProducts = sortProducts.sort("createdAt");
   }
-  const page = Number(req.body.page) || 1;
+  const page = Number(req.query.page) || 1;
   const limit = 7;
   const skip = (page - 1) * limit;
 
