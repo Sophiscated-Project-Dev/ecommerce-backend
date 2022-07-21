@@ -38,6 +38,10 @@ const productSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    discount: {
+      type: Number,
+      default: 0,
+    },
     images: {
       type: [String],
       default: ["/uploads/couch.jpeg"],

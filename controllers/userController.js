@@ -59,10 +59,13 @@ const logout = (req, res) => {
 
 // get all users
 const getAllUsers = async (req, res) => {
-  const users = await User.find({ role: "user" }).select(
-    "-password -comfirmPassword"
-  );
-  if (!users) {
+  let users = User.find({ role: "user" }).select("-password -comfirmPassword");
+  const page = Number(req.body.page) || 1;
+  const limit = 7;
+  const skip = (page - 1) * limit;
+  users = users.skip(skip).limit(limit);
+  const limitedUsers = await users;
+  if (!limitedUsers) {
     throw new BadRequestError(`no user found`);
   }
   res.status(StatusCodes.OK).json({ users });

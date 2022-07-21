@@ -30,7 +30,7 @@ const getAllProducts = async (req, res) => {
     sortProducts = sortProducts.sort("createdAt");
   }
   const page = Number(req.body.page) || 1;
-  const limit = Number(req.body.limit) || 15;
+  const limit = 7;
   const skip = (page - 1) * limit;
 
   sortProducts = sortProducts.skip(skip).limit(limit);
