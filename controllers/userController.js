@@ -68,7 +68,7 @@ const getAllUsers = async (req, res) => {
   if (!limitedUsers) {
     throw new BadRequestError(`no user found`);
   }
-  res.status(StatusCodes.OK).json({ users });
+  res.status(StatusCodes.OK).json({ users: limitedUsers });
 };
 
 const getUser = async (req, res) => {
