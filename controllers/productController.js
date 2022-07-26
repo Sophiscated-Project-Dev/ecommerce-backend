@@ -169,17 +169,21 @@ const getNewArrival = async (req, res) => {
   const queryWeek = newArrival[0].week;
   const month = new Date().getMonth + 1;
   const currentYear = new Date().getFullYear;
-  const computedNewArrival = newArrival.filter((value) => {
-    return (
+  const computedNewArrival = newArrival.map((value) => {
+    if (
       value.year === currentYear &&
       value.month === month &&
       value.week === queryWeek
-    );
+    ) {
+      return value;
+    }
   });
   if (!computedNewArrival) {
     throw new NotFoundError("no new arrival");
   }
-  res.status(StatusCodes.OK).json({ newArrival: computedNewArrival });
+  res
+    .status(StatusCodes.OK)
+    .json({ newArrival: computedNewArrival, check: newArrival });
 };
 module.exports = {
   uploadImage,
