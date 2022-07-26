@@ -92,6 +92,97 @@ const uploadImage = async (req, res) => {
   res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
 };
 
+//top ranked products
+const getTopRankProducts = async (req, res) => {
+  const products = await Product.aggregate([
+    {
+      $match: {
+        averageRating: {
+          $gte: 4,
+        },
+        numberOfReviews: {
+          $gte: 4,
+        },
+      },
+    },
+  ]);
+  if (!products) {
+    throw new NotFoundError("no top ranked products");
+  }
+  res.status(StatusCodes.OK).json(products);
+};
+
+//top brand
+const getTopBrands = async (req, res) => {
+  const brands = await Product.aggregate([
+    {
+      $group: {
+        _id: {
+          brand: "$brand",
+        },
+        count: {
+          $sum: 1,
+        },
+      },
+    },
+    {
+      $addFields: {
+        brandName: "$_id.brand",
+      },
+    },
+    {
+      $project: {
+        brandName: 1,
+        _id: 0,
+      },
+    },
+  ]);
+  if (!brands) {
+    throw new NotFoundError("no top brands");
+  }
+  res.status(StatusCodes.OK).json(brands);
+};
+
+const getNewArrival = async (req, res) => {
+  const newArrival = await Product.aggregate([
+    {
+      $addFields: {
+        year: {
+          $year: "$createdAt",
+        },
+        month: {
+          $month: "$createdAt",
+        },
+        week: {
+          $week: "$createdAt",
+        },
+      },
+    },
+    {
+      $sort: {
+        week: -1,
+        year: -1,
+        month: -1,
+      },
+    },
+  ]);
+  const queryWeek = newArrival[0].week;
+  const month = new Date().getMonth + 1;
+  const currentYear = new Date().getFullYear;
+  const computedNewArrival = newArrival.filter((value) => {
+    if (
+      value.year === currentYear &&
+      value.month === month &&
+      value.week === queryWeek
+    ) {
+      return value;
+    }
+  });
+  if (!computedNewArrival) {
+    throw new NotFoundError("no new arrival");
+  }
+  res.status(StatusCodes.OK).json({ newArrival: computedNewArrival });
+};
 module.exports = {
   uploadImage,
   createProduct,
@@ -99,4 +190,7 @@ module.exports = {
   getSingleProduct,
   updateProduct,
   deletProduct,
+  getTopRankProducts,
+  getTopBrands,
+  getNewArrival,
 };

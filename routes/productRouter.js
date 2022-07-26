@@ -10,6 +10,9 @@ const {
   getSingleProduct,
   updateProduct,
   deletProduct,
+  getTopRankProducts,
+  getTopBrands,
+  getNewArrival
 } = require("../controllers/productController");
 
 router
@@ -24,5 +27,8 @@ router
   .patch([authenticateUser, authorizePermissions("admin")], updateProduct)
   .get(getSingleProduct)
   .delete([authenticateUser, authorizePermissions("admin")], deletProduct);
+router.route("/top-ranks").get(getTopRankProducts);
+router.route("/top-brands").get(getTopBrands);
+router.route("/new-arrivals").get(getNewArrival);
 
 module.exports = router;
