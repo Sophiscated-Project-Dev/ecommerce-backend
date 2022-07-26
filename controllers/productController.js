@@ -109,7 +109,7 @@ const getTopRankProducts = async (req, res) => {
   if (!products) {
     throw new NotFoundError("no top ranked products");
   }
-  res.status(StatusCodes.OK).json(products);
+  res.status(StatusCodes.OK).json({topRanks: products});
 };
 
 //top brand
@@ -140,7 +140,7 @@ const getTopBrands = async (req, res) => {
   if (!brands) {
     throw new NotFoundError("no top brands");
   }
-  res.status(StatusCodes.OK).json(brands);
+  res.status(StatusCodes.OK).json({topBrands: brands});
 };
 
 const getNewArrival = async (req, res) => {

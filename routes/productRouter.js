@@ -12,12 +12,15 @@ const {
   deletProduct,
   getTopRankProducts,
   getTopBrands,
-  getNewArrival
+  getNewArrival,
 } = require("../controllers/productController");
 
 router
   .route("/uploads")
   .post([authenticateUser, authorizePermissions("admin")], uploadImage);
+router.route("/top-ranks").get(getTopRankProducts);
+router.route("/top-brands").get(getTopBrands);
+router.route("/new-arrivals").get(getNewArrival);
 router
   .route("/")
   .post([authenticateUser, authorizePermissions("admin")], createProduct)
@@ -27,8 +30,5 @@ router
   .patch([authenticateUser, authorizePermissions("admin")], updateProduct)
   .get(getSingleProduct)
   .delete([authenticateUser, authorizePermissions("admin")], deletProduct);
-router.route("/top-ranks").get(getTopRankProducts);
-router.route("/top-brands").get(getTopBrands);
-router.route("/new-arrivals").get(getNewArrival);
 
 module.exports = router;
