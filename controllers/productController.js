@@ -179,9 +179,7 @@ const getNewArrival = async (req, res) => {
   if (!computedNewArrival) {
     throw new NotFoundError("no new arrival");
   }
-  res
-    .status(StatusCodes.OK)
-    .json({ newArrival: computedNewArrival, check: newArrival });
+  res.status(StatusCodes.OK).json({ newArrival: computedNewArrival });
 };
 module.exports = {
   uploadImage,
