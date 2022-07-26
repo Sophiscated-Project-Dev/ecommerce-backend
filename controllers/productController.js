@@ -167,8 +167,8 @@ const getNewArrival = async (req, res) => {
     },
   ]);
   const queryWeek = newArrival[0].week;
-  const month = new Date().getMonth + 1;
-  const currentYear = new Date().getFullYear;
+  const month = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
   const computedNewArrival = newArrival.map((value) => {
     if (
       value.year === currentYear &&
