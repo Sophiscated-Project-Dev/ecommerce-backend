@@ -109,7 +109,7 @@ const getTopRankProducts = async (req, res) => {
   if (!products) {
     throw new NotFoundError("no top ranked products");
   }
-  res.status(StatusCodes.OK).json({topRanks: products});
+  res.status(StatusCodes.OK).json({ topRanks: products });
 };
 
 //top brand
@@ -140,7 +140,7 @@ const getTopBrands = async (req, res) => {
   if (!brands) {
     throw new NotFoundError("no top brands");
   }
-  res.status(StatusCodes.OK).json({topBrands: brands});
+  res.status(StatusCodes.OK).json({ topBrands: brands });
 };
 
 const getNewArrival = async (req, res) => {
@@ -170,13 +170,11 @@ const getNewArrival = async (req, res) => {
   const month = new Date().getMonth + 1;
   const currentYear = new Date().getFullYear;
   const computedNewArrival = newArrival.filter((value) => {
-    if (
+    return (
       value.year === currentYear &&
       value.month === month &&
       value.week === queryWeek
-    ) {
-      return value;
-    }
+    );
   });
   if (!computedNewArrival) {
     throw new NotFoundError("no new arrival");
