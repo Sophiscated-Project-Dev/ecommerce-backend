@@ -39,7 +39,13 @@ const productSchema = new Schema(
       default: false,
     },
     discount: {
+      required: [true, "please provide discount"],
       type: Number,
+      default: 0,
+    },
+    tax: {
+      type: Number,
+      required: [true, "provide tax value"],
       default: 0,
     },
     images: {
