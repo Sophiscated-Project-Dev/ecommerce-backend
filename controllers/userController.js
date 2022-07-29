@@ -59,7 +59,7 @@ const logout = (req, res) => {
 
 // get all users
 const getAllUsers = async (req, res) => {
-  let users = User.find({ role: "user" }).select("-password -comfirmPassword");
+  let users = User.find({ role: "user" }).select("-password -confirmPassword");
   const page = Number(req.query.page) || 1;
   const limit = 7;
   const skip = (page - 1) * limit;
@@ -73,7 +73,7 @@ const getAllUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId }).select(
-    "-password -comfirmPassword"
+    "-password -confirmPassword"
   );
   if (!user) {
     throw new NotFoundError(`no usser with the id: ${req.user.userId}`);
