@@ -34,7 +34,7 @@ const getAllProducts = async (req, res) => {
   const skip = (page - 1) * limit;
 
   sortProducts = sortProducts.skip(skip).limit(limit);
-  const sortedProducts = await sortProducts;
+  const sortedProducts = await sortProducts.select("-createdAt, -updatedAt");
   res.status(StatusCodes.OK).json({ product: sortedProducts });
 };
 
@@ -42,15 +42,18 @@ const getAllProducts = async (req, res) => {
 const getSingleProduct = async (req, res) => {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId })
-    .populate({
-      path: "reviews",
-      populate: { path: "user", select: "firstName lastName -_id" },
-      select: "-createdAt -updatedAt",
-    })
-    .populate({
-      path: "vendor",
-      select: "-password, -confirmPassword, -_id",
-    });
+    .populate([
+      {
+        path: "reviews",
+        populate: { path: "user", select: "firstName lastName -_id" },
+        select: "-createdAt -updatedAt",
+      },
+      {
+        path: "vendor",
+        select: "-password -confirmPassword -createdAt -updatedAt -_id",
+      },
+    ])
+    .select("-createdAt -updatedAt");
   if (!product) {
     throw new NotFoundError(`product with this id: ${productId} not found`);
   }
