@@ -245,7 +245,7 @@ const topVendors = async (req, res) => {
   ]);
   await Product.populate(topVendors, {
     path: "vendor",
-    select: "-createdAt -updatedAt, -password, -count, -confirmPassword",
+    select: "-createdAt -updatedAt, -password, -confirmPassword",
   });
   if (!topVendors) {
     throw new NotFoundError("no top vendors");
