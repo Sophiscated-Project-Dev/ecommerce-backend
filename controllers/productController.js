@@ -206,8 +206,8 @@ const recommendedProducts = async (req, res) => {
     },
     {
       $project: {
-        updatedAt: -1,
-        createdAt: -1,
+        updatedAt: 0,
+        createdAt: 0,
       },
     },
   ]);
