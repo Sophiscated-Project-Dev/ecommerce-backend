@@ -237,10 +237,15 @@ const topVendors = async (req, res) => {
         _id: 0,
       },
     },
+    {
+      $sort: {
+        count: -1,
+      },
+    },
   ]);
   await Product.populate(topVendors, {
     path: "vendor",
-    select: "-createdAt -updatedAt",
+    select: "-createdAt -updatedAt, -password, -count, -confirmPassword",
   });
   if (!topVendors) {
     throw new NotFoundError("no top vendors");
@@ -259,5 +264,5 @@ module.exports = {
   getTopBrands,
   getNewArrival,
   recommendedProducts,
-  topVendors
+  topVendors,
 };
