@@ -214,7 +214,7 @@ const recommendedProducts = async (req, res) => {
   if (!products) {
     throw new NotFoundError("no recommended products");
   }
-  res.status(StatusCodes.OK).json({ recommended: recommendedProducts });
+  res.status(StatusCodes.OK).json({ recommended: products });
 };
 
 module.exports = {
@@ -227,5 +227,5 @@ module.exports = {
   getTopRankProducts,
   getTopBrands,
   getNewArrival,
-  recommendedProducts
+  recommendedProducts,
 };
