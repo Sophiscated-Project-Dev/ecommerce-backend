@@ -233,13 +233,14 @@ const topVendors = async (req, res) => {
       },
     },
     {
-      $project: {
-        _id: 0,
+      $sort: {
+        count: -1,
       },
     },
     {
-      $sort: {
-        count: -1,
+      $project: {
+        _id: 0,
+        count: 0,
       },
     },
   ]);
