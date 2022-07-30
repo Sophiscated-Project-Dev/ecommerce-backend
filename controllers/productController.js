@@ -46,7 +46,8 @@ const getSingleProduct = async (req, res) => {
       {
         path: "reviews",
         populate: { path: "user", select: "firstName lastName -_id" },
-        select: "-createdAt -updatedAt",
+        //perDocumentLimit: 10,
+        select: "-createdAt -updatedAt -_id",
       },
       {
         path: "vendor",
@@ -193,6 +194,29 @@ const getNewArrival = async (req, res) => {
   }
   res.status(StatusCodes.OK).json({ newArrival: computedNewArrival });
 };
+
+const recommendedProducts = async (req, res) => {
+  const productsInDb = Product.countDocuments();
+  const size = productsInDb > 30 ? 20 : 7;
+  const products = await Product.aggregate([
+    {
+      $sample: {
+        size: size,
+      },
+    },
+    {
+      $project: {
+        updatedAt: -1,
+        createdAt: -1,
+      },
+    },
+  ]);
+  if (!products) {
+    throw new NotFoundError("no recommended products");
+  }
+  res.status(StatusCodes.OK).json({ recommended: recommendedProducts });
+};
+
 module.exports = {
   uploadImage,
   createProduct,
@@ -203,4 +227,5 @@ module.exports = {
   getTopRankProducts,
   getTopBrands,
   getNewArrival,
+  recommendedProducts
 };
