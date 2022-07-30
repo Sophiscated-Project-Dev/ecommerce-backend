@@ -217,6 +217,37 @@ const recommendedProducts = async (req, res) => {
   res.status(StatusCodes.OK).json({ recommended: products });
 };
 
+const topVendors = async (req, res) => {
+  const topVendors = await Product.aggregate([
+    {
+      $group: {
+        _id: "$vendor",
+        count: {
+          $sum: 1,
+        },
+      },
+    },
+    {
+      $addFields: {
+        vendor: "$_id",
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+  ]);
+  await Product.populate(topVendors, {
+    path: "vendor",
+    select: "-createdAt -updatedAt",
+  });
+  if (!topVendors) {
+    throw new NotFoundError("no top vendors");
+  }
+  res.status(StatusCodes.OK).json({ topVendors });
+};
+
 module.exports = {
   uploadImage,
   createProduct,
@@ -228,4 +259,5 @@ module.exports = {
   getTopBrands,
   getNewArrival,
   recommendedProducts,
+  topVendors
 };
