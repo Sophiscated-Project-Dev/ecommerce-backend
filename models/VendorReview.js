@@ -36,7 +36,7 @@ const vendorReview = new Schema(
 vendorReview.index({ vendor: 1, user: 1 }, { unique: true });
 
 vendorReview.statics.averageRating = async function (vendorId) {
-  const rating = await this.aggregate([
+  const ratingAverage = await this.aggregate([
     { $match: { vendor: vendorId } },
     {
       $group: {
@@ -50,8 +50,8 @@ vendorReview.statics.averageRating = async function (vendorId) {
     await Vendor.findOneAndUpdate(
       { _id: vendorId },
       {
-        averageRating: Math.ceil(rating[0]?.averageRating || 0),
-        numberOfReviews: rating[0]?.numberOfReviews || 0,
+        averageRating: Math.ceil(ratingAverage[0]?.averageRating || 0),
+        numberOfReviews: ratingAverage[0]?.numberOfReviews || 0,
       }
     );
   } catch (error) {
