@@ -47,7 +47,7 @@ vendorReview.statics.averageRating = async function (vendorId) {
     },
   ]);
   try {
-    await Vendor.findOneAndUpdate(
+    await this.model("Vendor").findOneAndUpdate(
       { _id: vendorId },
       {
         averageRating: Math.ceil(ratingAverage[0]?.averageRating || 0),
