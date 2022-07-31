@@ -87,11 +87,6 @@ const productSchema = new Schema(
       type: [String],
       default: ["size"],
     },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

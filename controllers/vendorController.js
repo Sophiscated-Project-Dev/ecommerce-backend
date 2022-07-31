@@ -1,4 +1,5 @@
 const Vendor = require("../models/Vendor");
+const VendorReview = require("../models/VendorReview");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError } = require("../errors/index");
 
@@ -19,4 +20,24 @@ const registerVendor = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ token });
 };
 
-module.exports = { registerVendor };
+//create vendor review
+const createVendorReview = async (req, res) => {
+  const { vendor: vendorId } = req.body;
+  const isVendorValid = await Vendor.findOne({ _id: vendorId });
+
+  if (!isVendorValid) {
+    throw new NotFoundError(`vendor with the id: ${vendorId} not found`);
+  }
+  const reviewExist = await VendorReview.findOne({
+    vendor: vendorId,
+    user: req.user.userId,
+  });
+  if (reviewExist) {
+    throw new BadRequestError("Review already submitted");
+  }
+  req.body.user = req.user.userId;
+  const review = await VendorReview.create(req.body);
+  res.status(StatusCodes.CREATED).json({ review });
+};
+
+module.exports = { registerVendor, createVendorReview };

@@ -54,7 +54,7 @@ reviewSchema.statics.averageRating = async function (productId) {
       { _id: productId },
       {
         averageRating: Math.ceil(ratingAverage[0]?.ratingAverage || 0),
-        numberOfReviews: ratingAverage[0]?.numberOfReviews,
+        numberOfReviews: ratingAverage[0]?.numberOfReviews || 0,
       }
     );
   } catch (error) {

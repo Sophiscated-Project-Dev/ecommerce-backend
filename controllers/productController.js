@@ -7,7 +7,7 @@ const Review = require("../models/Review");
 
 //create product
 const createProduct = async (req, res) => {
-  req.body.user = req.user.userId;
+  req.body.vendor = req.user.userId;
   const {} = req.body;
   const product = await Product.create(req.body);
   res.status(StatusCodes.CREATED).json({ product });

@@ -1,7 +1,11 @@
 const router = require("express").Router();
 
-const { registerVendor } = require("../controllers/vendorController");
+const {
+  registerVendor,
+  createVendorReview,
+} = require("../controllers/vendorController");
 
 router.route("/register").post(registerVendor);
+router.route("/create-review").post(createVendorReview);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const { model, Schema } = mongoose;
+const VendorReview = require("./VendorReview");
 
 const vendorSchema = Schema(
   {
@@ -32,6 +33,14 @@ const vendorSchema = Schema(
       minLength: 4,
       trim: true,
     },
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
+    numberOfReviews: {
+      type: Number,
+      default: 0,
+    },
     phoneNumber: {
       type: String,
       required: [true, "please provide phone number"],
@@ -50,9 +59,25 @@ const vendorSchema = Schema(
       minLength: 8,
       required: [true, "please provide password"],
     },
+    role: {
+      type: String,
+      required: [true, "please provide a role"],
+      enum: ["vendor"],
+      default: "vendor",
+    },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+vendorSchema.virtual("review", {
+  ref: "VendorReview",
+  localField: "_id",
+  foreignField: "vendor",
+  justOne: false,
+});
+vendorSchema.post("remove", async function () {
+  await VendorReview.deleteMany({ vendor: this._id });
+});
 
 vendorSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
