@@ -59,7 +59,7 @@ vendorReview.statics.averageRating = async function (vendorId) {
   }
 };
 
-vendorReview.pre("save", async function () {
+vendorReview.post("save", async function () {
   await this.constructor.averageRating(this.vendor);
 });
 
