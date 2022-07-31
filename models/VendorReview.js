@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Vendor = require("./Vendor");
 const { Schema, model } = mongoose;
 
 const vendorReview = new Schema(
