@@ -144,6 +144,11 @@ const getTopBrands = async (req, res) => {
       },
     },
     {
+      $sort: {
+        count: -1,
+      },
+    },
+    {
       $project: {
         brandName: 1,
         _id: 0,
