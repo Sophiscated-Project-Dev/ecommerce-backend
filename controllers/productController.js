@@ -222,7 +222,7 @@ const topVendors = async (req, res) => {
     {
       $group: {
         _id: "$vendor",
-        count: {
+        productCount: {
           $sum: 1,
         },
       },
@@ -234,19 +234,18 @@ const topVendors = async (req, res) => {
     },
     {
       $sort: {
-        count: -1,
+        productCount: -1,
       },
     },
     {
       $project: {
         _id: 0,
-        count: 0,
       },
     },
   ]);
   await Product.populate(topVendors, {
     path: "vendor",
-    select: "-createdAt -updatedAt -password -confirmPassword",
+    select: "-createdAt -updatedAt -password -confirmPassword -role",
   });
   if (!topVendors) {
     throw new NotFoundError("no top vendors");
