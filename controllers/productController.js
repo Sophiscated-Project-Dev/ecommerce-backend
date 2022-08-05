@@ -179,14 +179,16 @@ const getNewArrival = async (req, res) => {
     {
       $sort: {
         week: -1,
-        year: -1,
         month: -1,
+        year: -1,
       },
     },
   ]);
   const queryWeek = newArrival[0].week;
-  const month = new Date().getMonth() + 1;
-  const currentYear = new Date().getFullYear();
+  const month = newArrival[0].month;
+  const currentYear = newArrival[0].year;
+  //const month = new Date().getMonth() + 1;
+  /*const currentYear = new Date().getFullYear()*/
   const computedNewArrival = newArrival.filter((value) => {
     return (
       value.year === currentYear &&
