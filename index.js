@@ -9,7 +9,17 @@ const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload");
 
 //database
-const cnonnectDb = require("./db/connectdb");
+let DATABASE_URL
+if (process.env.NODE_ENV === 'development') {
+  DATABASE_URL = process.env.DEV_DATABASE_URL
+}
+if (process.env.NODE_ENV === 'test') {
+  DATABASE_URL = process.env.TEST_DATABASE_URL
+}
+if (process.env.NODE_ENV === 'production') {
+  DATABASE_URL = process.env.DATABASE_URL
+}
+const connectDb = require("./db/connectdb");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -42,7 +52,7 @@ app.get("/", (req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-cnonnectDb();
+connectDb(DATABASE_URL);
 app.listen(PORT, () => {
   console.log(`App listening on port: ${PORT}`);
 });
