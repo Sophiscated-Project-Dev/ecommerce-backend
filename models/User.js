@@ -56,13 +56,13 @@ const userSchema = Schema(
 );
 
 userSchema.pre("save", async function () {
-  if (this.password !== this.confirmPassword) {
-    throw new BadRequestError('passwords do not match')
-  }
-  const salt = await bcrypt.genSalt(10);
   if (this.password === this.confirmPassword) {
+    const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
     this.confirmPassword = await bcrypt.hash(this.confirmPassword, salt);
+  }
+  else {
+    throw new BadRequestError('passwords do not match')
   }
 });
 
