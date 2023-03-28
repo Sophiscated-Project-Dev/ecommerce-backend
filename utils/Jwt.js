@@ -2,7 +2,7 @@ const jsonwebtoken = require("jsonwebtoken");
 
 const createToken = ({ payload }) => {
   return jsonwebtoken.sign(payload, process.env.SECRET, {
-    expiresIn: process.env.EXPIRATION,
+    expiresIn: process.env.EXPIRATION || '1d',
   });
 };
 
