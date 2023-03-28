@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const { model, Schema } = mongoose;
+const BadRequestError = require('../errors/badrequest')
 
 const userSchema = Schema(
   {
@@ -55,6 +56,9 @@ const userSchema = Schema(
 );
 
 userSchema.pre("save", async function () {
+  if (this.password !== this.confirmPassword) {
+    throw new BadRequestError('passwords do not match')
+  }
   const salt = await bcrypt.genSalt(10);
   if (this.password === this.confirmPassword) {
     this.password = await bcrypt.hash(this.password, salt);
