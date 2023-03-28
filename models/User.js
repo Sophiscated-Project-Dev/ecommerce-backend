@@ -39,7 +39,7 @@ const userSchema = Schema(
       minLength: 8,
       required: [true, "please provide password"],
     },
-    comfirmPassword: {
+    confirmPassword: {
       type: String,
       minLength: 8,
       required: [true, "please provide password"],
@@ -56,9 +56,9 @@ const userSchema = Schema(
 
 userSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
-  if (this.password === this.comfirmPassword) {
+  if (this.password === this.confirmPassword) {
     this.password = await bcrypt.hash(this.password, salt);
-    this.comfirmPassword = await bcrypt.hash(this.comfirmPassword, salt);
+    this.confirmPassword = await bcrypt.hash(this.confirmPassword, salt);
   }
 });
 
