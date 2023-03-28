@@ -1,7 +1,12 @@
 const express = require("express");
+const cors = require('cors')
 const app = express();
 require("dotenv").config();
 require("express-async-errors");
+
+// cors headers
+
+app.use(cors())
 
 //other packages
 const cookieParser = require("cookie-parser");
@@ -44,12 +49,12 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
 
-app.use(notFound);
-
 //test route
 app.get("/", (req, res, next) => {
   res.send("This is the home page");
 });
+
+app.use(notFound);
 
 const PORT = process.env.PORT || 5000;
 connectDb(DATABASE_URL);
