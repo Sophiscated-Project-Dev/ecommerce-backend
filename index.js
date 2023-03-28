@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require('cors')
+const errorHandlerMiddleware = require('./middleware/error-handler')
 const app = express();
 require("dotenv").config();
 require("express-async-errors");
@@ -55,6 +56,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use(notFound);
+app.use(errorHandlerMiddleware)
 
 const PORT = process.env.PORT || 5000;
 connectDb(DATABASE_URL);
