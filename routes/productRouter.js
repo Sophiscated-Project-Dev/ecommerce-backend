@@ -5,17 +5,18 @@ const {
 } = require("../middleware/authenticate");
 const {
   uploadImage,
-  createProduct,
+  // createProduct,
   getAllProducts,
   getSingleProduct,
   updateProduct,
   deletProduct,
+  createNewProduct
 } = require("../controllers/productController");
 
 router.route("/uploads").post(uploadImage);
 router
   .route("/")
-  .post([authenticateUser, authorizePermissions("admin")], createProduct)
+  .post([authenticateUser, authorizePermissions("admin")],createNewProduct)
   .get(getAllProducts);
 router
   .route("/:id")
