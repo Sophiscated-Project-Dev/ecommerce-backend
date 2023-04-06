@@ -12,6 +12,13 @@ const errorHandlerMiddleware = (err, req, res, next) => {
         return res.status(err.StatusCodes).json({ msg: err.message })
     }
 
+    if (err.name === 'ValidationError') {
+        customError.msg = Object.values(err.errors)
+          .map((item) => item.message)
+          .join(',');
+          customError.StatusCodes = 400;
+    }
+
     if (err.name === 'CastError') {
         customError.msg = `No item found with id : ${err.value}`
         customError.StatusCodes= 404
