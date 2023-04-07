@@ -5,6 +5,27 @@ const { BadRequestError, NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const Review = require("../models/Review");
 
+//create product with image
+const createNewProduct = async (req, res) => {
+  // req.body.user = req.user.userId;
+  let imageUrl = ''
+  const image = req.files.image;
+  if (!image.mimetype.startsWith("image")) {
+    throw new BadRequestError("please upload image");
+  }
+  const result = await cloudinary.uploader.upload(image.tempFilePath, {
+    use_filename: true,
+    unique_filename: false,
+    folder: "file-upload",
+  });
+  fs.unlinkSync(image.tempFilePath);
+  imageUrl = result.secure_url
+  const {} = req.body;
+  // const product = req.body;
+  const product = await Product.create({...req.body, images:[imageUrl]});
+  res.status(StatusCodes.CREATED).json({ ...product });
+};
+
 //create product
 const createProduct = async (req, res) => {
   req.body.user = req.user.userId;
@@ -99,4 +120,5 @@ module.exports = {
   getSingleProduct,
   updateProduct,
   deletProduct,
+  createNewProduct
 };
