@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
-const cnonnectDb = async () => {
+
+const connectDb = async (url) => {
   try {
-    await mongoose.connect(process.env.DATABASE_URL, {
+    await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -13,4 +14,4 @@ const cnonnectDb = async () => {
   }
 };
 
-module.exports = cnonnectDb;
+module.exports = connectDb;

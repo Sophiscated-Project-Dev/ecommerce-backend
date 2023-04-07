@@ -5,7 +5,7 @@ const {
 } = require("../middleware/authenticate");
 const {
   uploadImage,
-  createProduct,
+  // createProduct,
   getAllProducts,
   getSingleProduct,
   updateProduct,
@@ -15,6 +15,7 @@ const {
   getNewArrival,
   recommendedProducts,
   topVendors
+  createNewProduct
 } = require("../controllers/productController");
 
 router
@@ -27,7 +28,7 @@ router.route("/recommended").get(recommendedProducts);
 router.route("/top-vendors").get(topVendors);
 router
   .route("/")
-  .post([authenticateUser, authorizePermissions("admin")], createProduct)
+  .post([authenticateUser, authorizePermissions("admin")],createNewProduct)
   .get(getAllProducts);
 router
   .route("/:id")

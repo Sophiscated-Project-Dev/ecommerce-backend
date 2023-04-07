@@ -2,7 +2,7 @@ const jsonwebtoken = require("jsonwebtoken");
 
 const createToken = ({ payload }) => {
   return jsonwebtoken.sign(payload, process.env.SECRET, {
-    expiresIn: process.env.EXPIRATION,
+    expiresIn: process.env.EXPIRATION || '1d',
   });
 };
 
@@ -17,7 +17,7 @@ const addTokonToCookie = ({ res, user }) => {
   const cookieExpiration = 1000 * 60 * 60 * 1;
   res.cookie("token", token, {
     httpOnly: true,
-    expires: new Date(Date.now() + cookieExpiration),
+    expire: Date.now() + cookieExpiration,
     secure: process.env.NODE_ENV === "production",
     signed: true,
   });

@@ -1,7 +1,13 @@
 const express = require("express");
+const cors = require('cors')
+const errorHandlerMiddleware = require('./middleware/error-handler')
 const app = express();
 require("dotenv").config();
 require("express-async-errors");
+
+// cors headers
+
+app.use(cors())
 
 //other packages
 const cookieParser = require("cookie-parser");
@@ -19,7 +25,17 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 app.get("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //database
-const cnonnectDb = require("./db/connectdb");
+let DATABASE_URL
+if (process.env.NODE_ENV === 'development') {
+  DATABASE_URL = process.env.DEV_DATABASE_URL
+}
+if (process.env.NODE_ENV === 'test') {
+  DATABASE_URL = process.env.TEST_DATABASE_URL
+}
+if (process.env.NODE_ENV === 'production') {
+  DATABASE_URL = process.env.DATABASE_URL
+}
+const connectDb = require("./db/connectdb");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -32,6 +48,7 @@ const userRouter = require("./routes/userRouter");
 const productRouter = require("./routes/productRouter");
 const reviewRouter = require("./routes/reviewRouter");
 const vendorRouter = require("./routes/vendorRouter");
+const orderRouter = require("./routes/orderRouter")
 
 const notFound = require("./middleware/not-found");
 
@@ -48,15 +65,18 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/vendors", vendorRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
-app.use(notFound);
+app.use("/api/v1/orders", orderRouter)
 
 //test route
 app.get("/", (req, res, next) => {
   res.send("This is the home page");
 });
 
+app.use(notFound);
+app.use(errorHandlerMiddleware)
+
 const PORT = process.env.PORT || 5000;
-cnonnectDb();
+connectDb(DATABASE_URL);
 app.listen(PORT, () => {
   console.log(`App listening on port: ${PORT}`);
 });
