@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const { model, Schema } = mongoose;
-const BadRequestError = require('../errors/badrequest')
+const VendorReview = require("./VendorReview");
 
-const userSchema = Schema(
+const vendorSchema = Schema(
   {
     firstName: {
       type: String,
@@ -27,6 +27,20 @@ const userSchema = Schema(
       },
       unique: true,
     },
+    businessName: {
+      type: String,
+      required: [true, "please provide business name"],
+      minLength: 4,
+      trim: true,
+    },
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
+    numberOfReviews: {
+      type: Number,
+      default: 0,
+    },
     phoneNumber: {
       type: String,
       required: [true, "please provide phone number"],
@@ -48,32 +62,35 @@ const userSchema = Schema(
     role: {
       type: String,
       required: [true, "please provide a role"],
-      enum: ["admin", "user"],
-      default: "user",
+      enum: ["vendor"],
+      default: "vendor",
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-userSchema.pre("save", async function () {
+vendorSchema.virtual("review", {
+  ref: "VendorReview",
+  localField: "_id",
+  foreignField: "vendor",
+  justOne: false,
+});
+vendorSchema.post("remove", async function () {
+  await VendorReview.deleteMany({ vendor: this._id });
+});
+
+vendorSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
   if (this.password === this.confirmPassword) {
     this.password = await bcrypt.hash(this.password, salt);
     this.confirmPassword = await bcrypt.hash(this.confirmPassword, salt);
-  if (this.password === this.confirmPassword) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    this.confirmPassword = await bcrypt.hash(this.confirmPassword, salt);
-  }
-  else {
-    throw new BadRequestError('passwords do not match')
   }
 });
 
-userSchema.methods.comparePasswords = async function (userPassword) {
+vendorSchema.methods.comparePasswords = async function (userPassword) {
   return await bcrypt.compare(userPassword, this.password);
 };
 
-module.exports = model("User", userSchema);
+module.exports = model("Vendor", vendorSchema);
 
 //first name, last name, email, phone number, password, confirm password
